@@ -1,0 +1,16 @@
+services:
+  db:
+    env_file:
+      - .env
+    image: postgres
+    environment:
+      - PGUSER=${POSTGRES_USER}
+      - PGPASSWORD=${POSTGRES_PASSWORD}
+      - PGDATABASE=${POSTGRES_DB}
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    restart: unless-stopped
+volumes:
+  db:
