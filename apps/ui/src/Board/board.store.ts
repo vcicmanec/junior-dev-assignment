@@ -1,4 +1,4 @@
-import type { Card, CardStatus } from '@/Board/types.ts'
+import type { Card } from '@/Board/types.ts'
 import { getCardUrl } from '@/util/fetch.ts'
 import { defineStore } from 'pinia'
 
