@@ -20,6 +20,9 @@ A modern web application built with Vue 3and TypeScript, featuring a card-based 
 - **NestJS** - Node.js framework for building efficient server-side applications
 - **Joi** - Data validation library
 - **Reflect Metadata** - Metadata reflection API
+- **PostgreSQL** - Relational database management system
+- **TypeORM** - Object-relational mapper for TypeScript and JavaScript (ES7, ES6, ES5). Supports MySQL, PostgreSQL, MariaDB, SQLite, MS SQL Server, Oracle, SAP Hana, WebSQL databases.
+- **pg-mem** - In-memory PostgreSQL database for testing
 
 ### Development Tools
 - **Vite 7.1.11** - Next generation frontend build tool
