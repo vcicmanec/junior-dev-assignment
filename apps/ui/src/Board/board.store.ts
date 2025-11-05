@@ -15,7 +15,7 @@ export const useBoardStore = defineStore('cards', {
   },
   actions: {
     async createCard(card: Card) {
-      await fetch(getCardUrl(), {
+      const res = await fetch(getCardUrl(), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -23,7 +23,9 @@ export const useBoardStore = defineStore('cards', {
         body: JSON.stringify(card),
       })
 
-      this.cards.push(card)
+      const newCard = await res.json()
+
+      this.cards.push(newCard)
     },
     async fetchAllCards() {
       const res = await fetch(getCardUrl())
