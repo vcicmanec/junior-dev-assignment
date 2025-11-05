@@ -18,7 +18,9 @@ onMounted(async () => {
     </div>
     <div class="container d-flex flex-row gap-4">
       <BoardColumn status="todo" label="Todo" />
+      <div style="border-left: 1px solid lightgray">&nbsp;</div>
       <BoardColumn status="in-progress" label="In Progress" />
+      <div style="border-left: 1px solid lightgray">&nbsp;</div>
       <BoardColumn status="done" label="Done" />
     </div>
   </div>
