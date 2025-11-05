@@ -4,12 +4,16 @@ import { type Card, CardStatus } from '@/Board/types.ts'
 import { ref } from 'vue'
 
 const boardStore = useBoardStore()
-const card = ref({} as Card)
+const card = ref({
+  status: 'todo',
+} as Card)
 
 function form_submitHandler() {
   boardStore.createCard(card.value)
 
-  card.value = {}
+  card.value = {
+    status: 'todo',
+  }
 }
 </script>
 
@@ -36,15 +40,10 @@ function form_submitHandler() {
                 v-model="card.description"
               />
             </div>
-            <div class="mb-3">
+            <div class="mb-3 d-flex flex-row gap-2">
               <label for="status" class="form-label">Status</label>
               <select name="status" v-model="card.status">
-                <option
-                  :selected="status === 'todo'"
-                  v-for="status in CardStatus"
-                  :key="status"
-                  :value="status"
-                >
+                <option v-for="status in CardStatus" :key="status" :value="status">
                   {{ status }}
                 </option>
               </select>
