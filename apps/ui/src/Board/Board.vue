@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import BoardColumn from '@/Board/BoardColumn.vue'
 import { useBoardStore } from '@/Board/board.store.ts'
-import { onMounted } from 'vue'
+import CreateCardModal from '@/Board/CreateCardModal.vue'
+import { onMounted, ref } from 'vue'
 
 const cardStore = useBoardStore()
 
@@ -11,9 +12,12 @@ onMounted(async () => {
 </script>
 
 <template>
+  <div class="container">
+    <CreateCardModal />
+  </div>
   <div class="container d-flex flex-row">
-    <BoardColumn label="Todo" :getter="cardStore.todoCards" />
-    <BoardColumn label="In Progress" :getter="cardStore.inProgressCards" />
-    <BoardColumn label="Done" :getter="cardStore.doneCards" />
+    <BoardColumn status="todo" label="Todo" />
+    <BoardColumn status="in-progress" label="In Progress" />
+    <BoardColumn status="done" label="Done" />
   </div>
 </template>

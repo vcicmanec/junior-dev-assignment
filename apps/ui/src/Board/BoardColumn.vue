@@ -1,15 +1,16 @@
 <script lang="ts" setup>
+import { useBoardStore } from '@/Board/board.store.ts'
 import Card from '@/Board/Card.vue'
 
-const props = defineProps(['label', 'getter'])
+const boardStore = useBoardStore()
+const props = defineProps(['label', 'status'])
 </script>
 
 <template>
-  <div class="container flex flex-column justify-center align-items-center gap-4">
+  <div class="mw-20">
     <h4>{{ label }}</h4>
-    <button class="btn btn-primary">+</button>
-    <div class="container flex gap-4">
-      <Card v-for="card in props.getter" :key="card.id" :card="card" />
+    <div class="container flex gap-4" style="width: 18rem">
+      <Card v-for="card in boardStore.cardsByStatus(props.status)" :key="card.id" :card="card" />
     </div>
   </div>
 </template>

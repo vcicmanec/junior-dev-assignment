@@ -12,11 +12,11 @@ const status = ref(props.card.status)
 
 const editingMode = ref(false)
 
-function editingButton_clickHandler() {
+function editButton_clickHandler() {
   editingMode.value = true
 }
 
-async function saveButton_clickHandler() {
+function saveButton_clickHandler() {
   editingMode.value = false
 
   void cardStore.updateCard({
@@ -36,18 +36,21 @@ async function deleteButton_clickHandler() {
   <div class="card">
     <div class="card-header">
       <span v-if="!editingMode"> {{ card.title }}</span>
-      <input v-model="title" type="text" v-if="editingMode" />
+      <input class="w-50%" v-model="title" type="text" v-if="editingMode" />
+      <button class="small btn" @click="editButton_clickHandler">edit</button>
     </div>
     <div class="card-body">
       <div v-if="!editingMode">{{ props.card?.description }}</div>
       <textarea v-model="description" class="w-100" v-if="editingMode"></textarea>
     </div>
     <div class="card-footer w-100">
-      <select v-model="status" class="form-select" v-if="editingMode">
-        <option v-for="status in CardStatus" :key="status" :value="status">{{ status }}</option>
+      <select v-model="status" class="form-select" @change="saveButton_clickHandler">
+        <option v-for="status in CardStatus" :key="status" :value="status">
+          {{ status }}
+        </option>
       </select>
       <div class="container flex flex-row justify-content-between">
-        <button v-if="!editingMode" @click="editingButton_clickHandler" class="btn btn-primary">
+        <button v-if="!editingMode" @click="editButton_clickHandler" class="btn btn-primary">
           Edit
         </button>
         <button v-if="editingMode" @click="deleteButton_clickHandler" class="btn btn-danger">

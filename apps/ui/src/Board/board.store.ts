@@ -1,4 +1,4 @@
-import type { Card } from '@/Board/types.ts'
+import type { Card, CardStatus } from '@/Board/types.ts'
 import { getCardUrl } from '@/util/fetch.ts'
 import { defineStore } from 'pinia'
 
@@ -7,16 +7,23 @@ export const useBoardStore = defineStore('cards', {
     cards: [] as Card[],
   }),
   getters: {
-    todoCards: (state) => state.cards.filter((card) => card.status === 'todo'),
-    inProgressCards: (state) => state.cards.filter((card) => card.status === 'in-progress'),
-    doneCards: (state) => state.cards.filter((card) => card.status === 'done'),
+    cardsByStatus: (state) => (status: CardStatus) => {
+      return state.cards.filter((card) => {
+        return card.status === status
+      })
+    },
   },
   actions: {
-    createCard: async (card: Card) => {
+    async createCard(card: Card) {
       await fetch(getCardUrl(), {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(card),
       })
+
+      this.cards.push(card)
     },
     async fetchAllCards() {
       const res = await fetch(getCardUrl())
@@ -29,17 +36,24 @@ export const useBoardStore = defineStore('cards', {
 
       this.cards = this.cards.filter((card: Card) => card.id !== id)
     },
-    async updateCard(card: Card) {
-      await fetch(getCardUrl(card.id), {
+    async updateCard(newCardState: Card) {
+      await fetch(getCardUrl(newCardState.id), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(card),
+        body: JSON.stringify(newCardState),
       })
 
-      const cardIndex = this.cards.findIndex((card) => card.id === card.id)
-      this.cards[cardIndex] = card
+      const existingCard = this.cards.find((card) => card.id === newCardState.id)
+
+      if (existingCard == null) {
+        return
+      }
+
+      existingCard.title = newCardState.title
+      existingCard.description = newCardState.description
+      existingCard.status = newCardState.status
     },
   },
 })
