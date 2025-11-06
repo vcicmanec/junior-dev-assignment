@@ -8,7 +8,7 @@ import { CardModule } from './card/card.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '../../.env',
+      envFilePath: ['../../.env', '.env'],
       validationSchema: Joi.object({
         ENVIRONMENT: Joi.string()
           .valid('local', 'development', 'production')

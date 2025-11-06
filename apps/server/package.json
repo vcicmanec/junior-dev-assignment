@@ -7,12 +7,14 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "build:docker": "cd ../.. && docker build -f apps/server/Dockerfile .",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "dev": "nest start --watch",
-    "start:dev": "nest start --watch",
+    "dev": "pnpm run run:db && nest start --watch",
+    "start:dev": "pnpm run run:db && nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/main",
+    "run:db": "cd ../.. && docker compose up -d db",
     "migration:generate": "typeorm migration:generate -d postgres-migration-data-source.ts",
     "migration:run": "typeorm migration:run -d postgres-migration-data-source.ts",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -81,5 +83,6 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "packageManager": "pnpm@9.0.0"
 }

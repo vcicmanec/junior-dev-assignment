@@ -40,10 +40,13 @@ A modern web application built with Vue 3and TypeScript, featuring a card-based 
 - **Node.js** (version 22 or higher)
 - **pnpm** package manager
 
-## 🛠️ Installation
+## 🛠️ How to run dev locally
 
 1. Clone the repository
 2. Install dependencies: `pnpm install`
 3. Create `.env` file in the root directory with the contents of the `.env.example` file
-4. Spin up the database: `docker-compose up`
+4. Spin up the database: `docker-compose up -d db`
 5. run `pnpm dev`
+
+## How to run server production build in docker
+1. run `docker compose up`
